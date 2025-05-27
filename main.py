@@ -3,6 +3,8 @@ from ryder_graphing import *
 import os
 
 pcipath = 'pcigale.ini'
+obs_file = 'observations.txt'
+cores = '6'
 
 def parse_one(filename):
 
@@ -11,11 +13,11 @@ def parse_one(filename):
     config = read_simple_ini(filename)
 
     # set round 1 params for ini generation
-    config['data_file'] = 'observations.txt'
+    config['data_file'] = obs_file
     config['parameters_file'] = ''
     config['sed_modules'] = 'sfhdelayed, bc03, nebular, dustatt_modified_starburst, dale2014, redshifting'
     config['analysis_method'] = 'pdf_analysis'
-    config['cores'] = '6'
+    config['cores'] = cores
 
     # write back to file
     write_simple_ini(filename, config, header_lines=header)
@@ -55,11 +57,11 @@ def parse_two(filename):
     config = read_simple_ini(filename)
 
     # set round 1 params for ini generation
-    config['data_file'] = 'observations.txt'
+    config['data_file'] = obs_file
     config['parameters_file'] = ''
     config['sed_modules'] = 'sfh2exp, bc03, nebular, dustatt_modified_starburst, dale2014, redshifting'
     config['analysis_method'] = 'pdf_analysis'
-    config['cores'] = '6'
+    config['cores'] = cores
 
     # write back to file
     write_simple_ini(filename, config, header_lines=header)
@@ -97,17 +99,17 @@ def parse_three(filename):
     config = read_simple_ini(filename)
 
     # set round 1 params for ini generation
-    config['data_file'] = 'observations.txt'
+    config['data_file'] = obs_file
     config['parameters_file'] = ''
     config['sed_modules'] = 'sfhdelayedbq, bc03, nebular, dustatt_modified_starburst, dale2014, redshifting'
     config['analysis_method'] = 'pdf_analysis'
-    config['cores'] = '6'
+    config['cores'] = cores
 
     # write back to file
     write_simple_ini(filename, config, header_lines=header)
 
     print(f"Modified {filename}")
-    print(f"Parse 2 Complete")
+    print(f"Parse 3 Complete")
 
 def round_three(filename):
     replacement_values = {

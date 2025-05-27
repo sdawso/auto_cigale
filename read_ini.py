@@ -43,8 +43,6 @@ def get_header_lines(filename):
                 break
     return header_lines
 
-import re
-
 def replace_ini_values(filepath, replacements):
     with open(filepath, 'r') as f:
         lines = f.readlines()
