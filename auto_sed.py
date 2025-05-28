@@ -1,13 +1,6 @@
-from read_ini import *
 import os
-import matplotlib.pyplot as plt
 from astropy.io import fits
-import numpy as np
-from astropy.table import Table
-import pandas as pd
 import subprocess
-import time
-import math
 
 def run_command(command):
     print(f"Running: {command}")
@@ -15,28 +8,28 @@ def run_command(command):
     if completed.returncode != 0:
         raise RuntimeError(f"Command failed: {command}")
 
-def load_all_results_pandas(root_dir):
-    all_dfs = []
-    for dirpath, _, filenames in os.walk(root_dir):
-        for filename in filenames:
-            if filename == "results.fits":
-                filepath = os.path.join(dirpath, filename)
-                try:
-                    table = Table.read(filepath)
-                    df = table.to_pandas()
-                    df["source_dir"] = dirpath  # Optional: track origin
-                    all_dfs.append(df)
-                except Exception as e:
-                    print(f"Failed to load {filepath}: {e}")
-
-    if all_dfs:
-        combined_df = pd.concat(all_dfs, ignore_index=True)
-        print('sheesh')
-        return combined_df
-    else:
-        print('crud')
-        return pd.DataFrame()
-        # Empty if nothing found
+# def load_all_results_pandas(root_dir):
+#     all_dfs = []
+#     for dirpath, _, filenames in os.walk(root_dir):
+#         for filename in filenames:
+#             if filename == "results.fits":
+#                 filepath = os.path.join(dirpath, filename)
+#                 try:
+#                     table = Table.read(filepath)
+#                     df = table.to_pandas()
+#                     df["source_dir"] = dirpath  # Optional: track origin
+#                     all_dfs.append(df)
+#                 except Exception as e:
+#                     print(f"Failed to load {filepath}: {e}")
+#
+#     if all_dfs:
+#         combined_df = pd.concat(all_dfs, ignore_index=True)
+#         print('sheesh')
+#         return combined_df
+#     else:
+#         print('crud')
+#         return pd.DataFrame()
+#         # Empty if nothing found
 
 def load_all_results_astropy(root_dir):
     results = []
