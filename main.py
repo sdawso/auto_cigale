@@ -169,6 +169,8 @@ def main():
 
     #reset
     run_command(f'rm -f {pcipath}')
+    run_command(f'rm -f {pcipath}.spec')
+
 
     # block two - sfh2exp
     run_command('pcigale init')
@@ -180,6 +182,10 @@ def main():
     # executing .ini
     run_command('pcigale run')
 
+    # reset
+    run_command(f'rm -f {pcipath}')
+    run_command(f'rm -f {pcipath}.spec')
+
     # block three - sfhdelayedbq
     run_command('pcigale init')
     # generated sfhdelayed ini
@@ -190,12 +196,11 @@ def main():
     # executing .ini
     run_command('pcigale run')
 
+    # reset
+    run_command(f'rm -f {pcipath}')
+    run_command(f'rm -f {pcipath}.spec')
+
     corner_plot()
-
-    # stamps = load_all_results_astropy('.')
-    # chart_generation(stamps)
-
-
 
     print('heck yeah')
 
