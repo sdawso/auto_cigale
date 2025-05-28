@@ -1,6 +1,5 @@
 from auto_sed import *
 from ryder_graphing import *
-import os
 
 pcipath = 'pcigale.ini'
 obs_file = 'observations.txt'
