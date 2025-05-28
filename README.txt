@@ -1,5 +1,5 @@
 ###
-Batch run CIGALE simulations and generate corner plot - requires installation of CIGALE v2022.1
+Batch run CIGALE simulations and generate corner plot - requires installation of CIGALE v2022.1, Python 3.13
 ###
 
 Dependencies: astropy, numpy, matplotlib
