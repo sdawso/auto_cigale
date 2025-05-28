@@ -97,14 +97,12 @@ def corner_plot(label_list = None, fits_directory = None,
                 for run, color, lab in zip(runs, colors, labels):
                     ax.scatter(run[:, j], run[:, i], s=10, alpha=0.5, color=color)
 
-                    # Compute median and ±1 sigma (16th, 84th percentiles) for y in bins of x quartiles
                     x = run[:, j]
                     y = run[:, i]
 
                     quartiles = np.percentile(x, [25, 50, 75])
                     bins_edges = [x.min() - 1e-10, quartiles[0], quartiles[1], quartiles[2], x.max() + 1e-10]
 
-                    # We'll store combined median and sigma over all bins for simplicity:
                     medians = []
                     sigmas_low = []
                     sigmas_high = []
