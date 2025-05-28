@@ -21,13 +21,16 @@ def extract_data(fits_path,
     combined = combined[np.isfinite(combined).all(axis=1)]
     return combined
 
-def run_list_parse(fits_list = None, base_directory = ".", results_name = "results.fits"):
+def run_list_parse(fits_directory = None, base_directory = ".", results_name = "results.fits"):
     out = []
 
-    if fits_list is not None:
-        for fits_file in fits_list:
-            run = extract_data(fits_file)
-            out.append(run)
+    if fits_directory is not None:
+        for dirpath, _, filenames in os.walk(fits_directory):
+            for filename in filenames:
+                if filename == results_name:
+                    fits_path = os.path.join(dirpath, filename)
+                    run = extract_data(fits_path)
+                    out.append(run)
     else:
         for dirpath, _, filenames in os.walk(base_directory):
             for filename in filenames:
@@ -38,10 +41,16 @@ def run_list_parse(fits_list = None, base_directory = ".", results_name = "resul
 
     return out
 
-def corner_plot(label_list = None, fits_list = None,
+# Generate corner plot, toggleable histograms and triangle scatter plots
+
+def corner_plot(label_list = None, fits_directory = None,
                 diagonal_histograms = True, triangle_scatter = True):
 
-    run_list = run_list_parse(fits_list)
+    # Default behavior - read every results.fits file in current directory
+    # Optional:
+    # - fits_directory: filepath string, overrides and points to fits results directory
+    # - base_directory: specify default directory
+    run_list = run_list_parse(fits_directory)
 
     output_dir = os.path.join(os.getcwd(), 'figures')
     os.makedirs(output_dir, exist_ok=True)
@@ -51,10 +60,8 @@ def corner_plot(label_list = None, fits_list = None,
     param_names = ["Redshift", "log M*", "log_sfr"]
     colors = ['blue', 'orange', 'green']
 
-    if label_list is not None:
-        labels = [l for l in label_list]
-    else:
-        labels = colors
+    # Optional - include list of labels (length must match number of fits files)
+    labels = label_list if label_list is not None and len(label_list) == len(run_list) else colors
     runs = [r for r in run_list]
     n = len(param_names)
 
